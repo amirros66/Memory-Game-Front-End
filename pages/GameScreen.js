@@ -7,7 +7,7 @@ export default function GameScreen() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={{ fontSize: 36, marginBottom: '30px' }}>
+			<Text style={{ fontSize: 36, marginBottom: 40 }}>
 				Game starts in....{' '}
 			</Text>
 			<CountdownCircleTimer
