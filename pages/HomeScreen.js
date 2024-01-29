@@ -4,20 +4,22 @@ import { Button, View } from "react-native";
 // if active, join a game. else start a game
 // when either button is pressed, make a post request to add a new user/player
 
-function handleStartGame() {
-  //dispatch thunk to start game
-}
+export default function HomeScreen({ navigation }) {
+  function handleStartGame() {
+    //dispatch thunk to start game
+    navigation.navigate("Game");
+  }
 
-function handleJoinGame() {
-  //dispatch thunk to join game
-}
+  function handleJoinGame() {
+    //dispatch thunk to join game
+    navigation.navigate("Game");
+  }
 
-export default function HomeScreen() {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Button title="Start a game" onPress={() => handleStartGame} />
+      <Button title="Start a game" onPress={handleStartGame} />
       <View style={{ marginVertical: 10 }} />
-      <Button title="Join a game" onPress={() => handleJoinGame} />
+      <Button title="Join a game" onPress={handleJoinGame} />
     </View>
   );
 }
