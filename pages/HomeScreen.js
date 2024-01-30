@@ -21,11 +21,14 @@ export default function HomeScreen({ navigation }) {
       <View style={{ marginVertical: 10 }} />
       <Button title="Join a game" onPress={handleJoinGame} />
 
+      {/* Testing */}
+      <Button title="Lobby" onPress={() => navigation.navigate("Lobby")} />
       {/*FOR TESTING PURPOSES ONLY */}
       <Button
         title="Display Sequence"
         onPress={() => navigation.navigate("DisplaySequence")}
       />
+      {/* Testing */}
     </View>
   );
 }
