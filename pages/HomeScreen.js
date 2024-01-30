@@ -29,6 +29,10 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("DisplaySequence")}
       />
       {/* Testing */}
+      <Button
+        title="Input Sequence"
+        onPress={() => navigation.navigate("InputSequence")}
+      />
     </View>
   );
 }
