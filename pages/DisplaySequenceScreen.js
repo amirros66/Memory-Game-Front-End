@@ -7,7 +7,7 @@ export default function DisplaySequenceScreen({ navigation }) {
 	const sequence = '⬅️ ⬆️ ⬇️ ➡️';
 
 	setTimeout(() => {
-		navigation.navigate('InputSequence'); //this.props.navigation.navigate('Login')
+		navigation.navigate('InputSequence');
 	}, 10000);
 
 	return (

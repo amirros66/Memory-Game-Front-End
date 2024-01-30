@@ -1,10 +1,15 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
-export default function ResultsScreen() {
+export default function ResultsScreen({ navigation }) {
+	// Replace with dynamic values
 	const p1Score = [1, 3];
 	const p2Score = [2, 4];
 	const p3Score = [3, 5];
+
+	setTimeout(() => {
+		navigation.navigate('DisplaySequence');
+	}, 15000);
 
 	return (
 		<View style={styles.container}>
