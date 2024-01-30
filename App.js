@@ -6,6 +6,7 @@ import GameScreen from "./pages/GameScreen";
 import DisplaySequenceScreen from "./pages/DisplaySequenceScreen";
 import InputSequenceScreen from "./pages/InputSequenceScreen";
 import ResultsScreen from "./pages/ResultsScreen";
+import GameOverScreen from "./pages/GameOverScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ export default function App() {
         />
         <Stack.Screen name="InputSequence" component={InputSequenceScreen} />
         <Stack.Screen name="Results" component={ResultsScreen} />
+        <Stack.Screen name="GameOver" component={GameOverScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
