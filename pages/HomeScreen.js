@@ -7,12 +7,12 @@ import { Button, View } from "react-native";
 export default function HomeScreen({ navigation }) {
   function handleStartGame() {
     //dispatch thunk to start game
-    navigation.navigate("Game");
+    navigation.navigate("Lobby");
   }
 
   function handleJoinGame() {
     //dispatch thunk to join game
-    navigation.navigate("Game");
+    navigation.navigate("Lobby");
   }
 
   return (
@@ -21,11 +21,14 @@ export default function HomeScreen({ navigation }) {
       <View style={{ marginVertical: 10 }} />
       <Button title="Join a game" onPress={handleJoinGame} />
 
+      {/* Testing */}
+      <Button title="Lobby" onPress={() => navigation.navigate("Lobby")} />
       {/*FOR TESTING PURPOSES ONLY */}
       <Button
         title="Display Sequence"
         onPress={() => navigation.navigate("DisplaySequence")}
       />
+      {/* Testing */}
       <Button
         title="Input Sequence"
         onPress={() => navigation.navigate("InputSequence")}
