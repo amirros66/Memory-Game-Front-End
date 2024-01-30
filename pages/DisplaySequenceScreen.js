@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet } from 'react-native';
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 export default function DisplaySequenceScreen() {
 	// Replace with dynamic values
@@ -7,13 +8,28 @@ export default function DisplaySequenceScreen() {
 
 	return (
 		<View style={styles.container}>
-			<Text style={{ fontSize: 30, fontWeight: 'bold' }}>
+			<Text
+				style={{ fontSize: 40, fontWeight: 'bold', marginBottom: 15 }}
+			>
 				Round {round}
 			</Text>
-			<Text style={{ fontSize: 20, marginBottom: 40 }}>
+			<Text style={{ fontSize: 25, marginBottom: 40 }}>
 				Remember the sequence!
 			</Text>
-			<Text style={{ fontSize: 40 }}>{sequence}</Text>
+			<Text style={{ fontSize: 40, marginBottom: 200 }}>{sequence}</Text>
+			<CountdownCircleTimer
+				isPlaying={true}
+				duration={10}
+				colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+				colorsTime={[10, 6, 3, 0]}
+				onComplete={() => ({ shouldRepeat: true, delay: 2 })}
+				updateInterval={1}
+				size={80}
+			>
+				{({ remainingTime, color }) => (
+					<Text style={{ color, fontSize: 40 }}>{remainingTime}</Text>
+				)}
+			</CountdownCircleTimer>
 		</View>
 	);
 }
