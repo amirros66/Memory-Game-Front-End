@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
 export default function GameOverScreen() {
   const firstPlace = "Player 1";
@@ -6,10 +6,29 @@ export default function GameOverScreen() {
   const thirdPlace = "Player 3";
 
   return (
-    <View>
-      <Text>1st Place: {firstPlace}</Text>
-      <Text>2nd Place: {secondPlace}</Text>
-      <Text>3rd Place: {thirdPlace}</Text>
+    <View style={styles.container}>
+      <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 15 }}>
+        🥇1st Place🥇
+      </Text>
+      <Text style={{ fontSize: 30, marginBottom: 15 }}>{firstPlace}</Text>
+      <Text style={{ fontSize: 37, fontWeight: "bold", marginBottom: 15 }}>
+        🥈2nd Place🥈
+      </Text>
+      <Text style={{ fontSize: 30, marginBottom: 15 }}>{secondPlace}</Text>
+      <Text style={{ fontSize: 35, fontWeight: "bold", marginBottom: 15 }}>
+        🥉3rd Place🥉
+      </Text>
+      <Text style={{ fontSize: 30, marginBottom: 15 }}>{thirdPlace}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ecf0f1",
+    padding: 8,
+  },
+});
