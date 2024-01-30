@@ -1,10 +1,14 @@
 import { Text, View, StyleSheet } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
-export default function DisplaySequenceScreen() {
+export default function DisplaySequenceScreen({ navigation }) {
 	// Replace with dynamic values
 	const round = 1;
 	const sequence = '⬅️ ⬆️ ⬇️ ➡️';
+
+	setTimeout(() => {
+		navigation.navigate('InputSequence'); //this.props.navigation.navigate('Login')
+	}, 10000);
 
 	return (
 		<View style={styles.container}>
