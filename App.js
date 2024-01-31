@@ -15,16 +15,41 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Lobby" component={LobbyScreen} />
-        <Stack.Screen name="Game" component={GameScreen} />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Lobby"
+          component={LobbyScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Game"
+          component={GameScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="DisplaySequence"
           component={DisplaySequenceScreen}
+          options={{ headerShown: false }}
         />
-        <Stack.Screen name="InputSequence" component={InputSequenceScreen} />
-        <Stack.Screen name="Results" component={ResultsScreen} />
-        <Stack.Screen name="GameOver" component={GameOverScreen} />
+        <Stack.Screen
+          name="InputSequence"
+          component={InputSequenceScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Results"
+          component={ResultsScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GameOver"
+          component={GameOverScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
