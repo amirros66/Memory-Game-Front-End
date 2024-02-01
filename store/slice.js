@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 initialState = {
 	game_id: null,
+	user_id: null,
 	users: [],
 	display_sequences: [],
 	round: 1,
@@ -16,9 +17,8 @@ const gameSlice = createSlice({
 		},
 		setGame: (state, action) => {
 			state.game_id = action.payload.id;
-			state.users = action.payload.users;
-			state.display_sequences = action.payload.display_sequences;
-			state.round = action.payload.round;
+			state.user_id = action.payload.user_id;
+			state.display_sequences = action.payload.sequences;
 		},
 	},
 });
