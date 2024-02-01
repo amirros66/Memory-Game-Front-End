@@ -27,6 +27,7 @@ export default function ResultsScreen({ navigation, route }) {
   const p3 = scoresArray && scoresArray.length > 2 ? scoresArray[2] : null;
   console.log("p3:", p3);
 
+  // make dynamic
   let round = 1;
 
   setTimeout(() => {
