@@ -14,8 +14,7 @@ import { selectDisplaySequences } from "../store/selectors";
 export default function InputSequenceScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const displaySequences = useSelector(selectDisplaySequences);
-  console.log(displaySequences);
+  //  const displaySequences = useSelector(selectDisplaySequences);
 
   const round = 1;
 
@@ -27,12 +26,23 @@ export default function InputSequenceScreen({ navigation }) {
   const [arrowValues, setArrowValues] = useState([]);
   const [finalArrowValues, setFinalArrowValues] = useState([]);
 
+  let value;
+
+  if (round === 1 && countdownCompleted) {
+    value = arrowValues.length < 5 ? arrowValues.join(",") : null;
+    console.log("Value:", value);
+  } else if (round === 2 && countdownCompleted) {
+    value = arrowValues.length < 7 ? arrowValues.join(",") : null;
+    console.log("Value:", value);
+  } else if (round === 3 && countdownCompleted) {
+    value = arrowValues.length < 9 ? arrowValues.join(",") : null;
+    console.log("Value:", value);
+  }
+
   useEffect(() => {
     if (countdownCompleted) {
       setFinalArrowValues(arrowValues);
-      console.log(arrowValues);
-      const value = arrowValues;
-      dispatch(setInputSequenceThunk(display_sequence_id, user_id, value));
+      dispatch(setInputSequenceThunk(user_id, display_sequence_id, value));
       setTimeout(() => {
         navigation.navigate("Results");
       }, 1500);
