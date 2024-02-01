@@ -53,7 +53,23 @@ export default function InputSequenceScreen({ navigation }) {
         arrowValue = "";
     }
 
-    if (arrowValue && arrows.length < 4) {
+    let maxArrows;
+
+    switch (round) {
+      case 1:
+        maxArrows = 4;
+        break;
+      case 2:
+        maxArrows = 6;
+        break;
+      case 3:
+        maxArrows = 8;
+        break;
+      default:
+        maxArrows = 4;
+    }
+
+    if (arrowValue && arrows.length < maxArrows) {
       setArrows((prevArrows) => [...prevArrows, arrow]);
       setArrowValues((prevArrowValues) => [...prevArrowValues, arrowValue]);
     }
