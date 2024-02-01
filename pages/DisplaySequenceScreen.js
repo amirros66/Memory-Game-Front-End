@@ -3,29 +3,11 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useSelector } from "react-redux";
 import { selectDisplaySequences } from "../store/selectors";
 
-// Remember to pass the display_sequence_id and user_id as props when you navigate to the input sequence page
-
 export default function DisplaySequenceScreen({ navigation }) {
-  const convertStringToEmoji = (sequence) => {
-    const mapping = {
-      left: "⬅️",
-      right: "➡️",
-      up: "⬆️",
-      down: "⬇️",
-    };
-
-    return sequence
-      .split(",")
-      .map((direction) => mapping[direction] || direction)
-      .join(" ");
-  };
-
   const displaySequence = useSelector(selectDisplaySequences);
   console.log("Display Sequence:", displaySequence); //returns empty array
-  const rawSequence = displaySequence[0]?.value || "Sequence not found";
-  console.log("Raw Sequence:", rawSequence);
 
-  const sequenceToDisplay = convertStringToEmoji(rawSequence);
+  const sequenceToDisplay = displaySequence[0]?.value || "Sequence not found";
 
   // Replace with dynamic values
   const round = 1;
