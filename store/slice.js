@@ -19,11 +19,11 @@ const gameSlice = createSlice({
 			state.game_id = action.payload.game_id;
 			state.user_id = action.payload.user_id;
 		},
-		setUser: (state, action) => {
+		setUserID: (state, action) => {
 			state.user_id = action.payload.id;
 		},
 	},
 });
 
-export const { setGame, setGameID } = gameSlice.actions;
+export const { setGame, setGameID, setUserID } = gameSlice.actions;
 export default gameSlice.reducer;
