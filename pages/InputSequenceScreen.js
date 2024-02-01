@@ -7,16 +7,20 @@ import {
 } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import React, { useState, useEffect } from "react";
-
-// use selector to get display disequences
-// use index of display sequence to get round
-// round = displaysequenceindex -1
-// if round = 1 --> < 4
-// if round = 2 --> < 6
-// if round = 3 --> < 8
+import { useDispatch, useSelector } from "react-redux";
+import { setInputSequenceThunk } from "../store/thunks";
+import { selectDisplaySequences } from "../store/selectors";
 
 export default function InputSequenceScreen({ navigation }) {
-  const round = 3;
+  const dispatch = useDispatch();
+
+  const displaySequences = useSelector(selectDisplaySequences);
+  console.log(displaySequences);
+
+  const round = 1;
+
+  const display_sequence_id = 25;
+  const user_id = 12;
 
   const [arrows, setArrows] = useState([]);
   const [countdownCompleted, setCountdownCompleted] = useState(false);
@@ -27,11 +31,13 @@ export default function InputSequenceScreen({ navigation }) {
     if (countdownCompleted) {
       setFinalArrowValues(arrowValues);
       console.log(arrowValues);
+      const value = arrowValues;
+      dispatch(setInputSequenceThunk(display_sequence_id, user_id, value));
       setTimeout(() => {
         navigation.navigate("Results");
       }, 1500);
     }
-  }, [countdownCompleted, finalArrowValues, navigation]);
+  }, [countdownCompleted, arrowValues, navigation]);
 
   const handleButtonPress = (arrow) => {
     let arrowValue = "";

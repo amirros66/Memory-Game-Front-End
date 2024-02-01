@@ -50,3 +50,19 @@ export const getDisplaySequencesThunk = (game_id) => {
     }
   };
 };
+
+export const setInputSequenceThunk = (user_id, display_sequence_id, value) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/input_sequence`, {
+        input_sequence: { value: value },
+        user_id: user_id,
+        display_sequence_id: display_sequence_id,
+      });
+      const input_sequence = response.data;
+      console.log("Input Sequence:", input_sequence);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+};
