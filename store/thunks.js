@@ -6,6 +6,7 @@ import {
   setUserID,
   setDisplaySequences,
   setUsers,
+  setResults,
 } from "./slice";
 import store from "./index";
 
@@ -96,6 +97,7 @@ export const getResultsThunk = (display_sequence_id) => {
       );
       const results = response.data;
       console.log("Results:", results);
+      dispatch(setResults(results));
     } catch (error) {
       console.log("Error:", error);
     }

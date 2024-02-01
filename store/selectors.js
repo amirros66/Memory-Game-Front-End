@@ -4,3 +4,5 @@ export const selectActiveGameID = (reduxState) => reduxState.game.game_id;
 
 export const selectDisplaySequences = (reduxState) =>
   reduxState.game.display_sequences;
+
+export const selectResults = (reduxState) => reduxState.game.results;

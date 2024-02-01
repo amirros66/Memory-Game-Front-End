@@ -42,12 +42,14 @@ export default function InputSequenceScreen({ navigation, route }) {
   useEffect(() => {
     if (countdownCompleted) {
       setFinalArrowValues(arrowValues);
-      dispatch(setInputSequenceThunk(user_id, display_sequence_id, value));
+      dispatch(setInputSequenceThunk(user_id, value));
       setTimeout(() => {
-        navigation.navigate("Results", { display_sequence_id, user_id });
+        navigation.navigate("Results", {
+          display_sequence_id: display_sequence_id,
+        });
       }, 1500);
     }
-  }, [countdownCompleted, arrowValues, navigation]);
+  }, [countdownCompleted, arrowValues, navigation, display_sequence_id]);
 
   const handleButtonPress = (arrow) => {
     let arrowValue = "";
