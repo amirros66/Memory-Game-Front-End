@@ -18,7 +18,9 @@ const gameSlice = createSlice({
 		setGame: (state, action) => {
 			state.game_id = action.payload.game_id;
 			state.user_id = action.payload.user_id;
-			state.display_sequences = action.payload.sequences;
+		},
+		setUser: (state, action) => {
+			state.user_id = action.payload.id;
 		},
 	},
 });
