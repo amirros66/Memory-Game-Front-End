@@ -87,3 +87,17 @@ export const getUsersThunk = (game_id) => {
     }
   };
 };
+
+export const getResultsThunk = (display_sequence_id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/scores/round/${display_sequence_id}`
+      );
+      const results = response.data;
+      console.log("Results:", results);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+};

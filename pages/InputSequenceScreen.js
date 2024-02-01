@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setInputSequenceThunk } from "../store/thunks";
 import { selectDisplaySequences } from "../store/selectors";
 
-export default function InputSequenceScreen({ navigation }) {
+export default function InputSequenceScreen({ navigation, route }) {
   const dispatch = useDispatch();
 
   //  const displaySequences = useSelector(selectDisplaySequences);
@@ -44,7 +44,7 @@ export default function InputSequenceScreen({ navigation }) {
       setFinalArrowValues(arrowValues);
       dispatch(setInputSequenceThunk(user_id, display_sequence_id, value));
       setTimeout(() => {
-        navigation.navigate("Results");
+        navigation.navigate("Results", { display_sequence_id, user_id });
       }, 1500);
     }
   }, [countdownCompleted, arrowValues, navigation]);
