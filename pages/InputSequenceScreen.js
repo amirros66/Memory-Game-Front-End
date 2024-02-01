@@ -15,7 +15,7 @@ export default function InputSequenceScreen({ navigation }) {
   const dispatch = useDispatch();
 
   //  const displaySequences = useSelector(selectDisplaySequences);
-
+  // change to dynamic values
   const round = 1;
 
   const display_sequence_id = 25;
