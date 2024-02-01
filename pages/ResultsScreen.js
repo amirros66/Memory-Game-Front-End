@@ -1,65 +1,102 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import { useEffect } from "react";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
+import { useDispatch, useSelector } from "react-redux";
+import { getResultsThunk } from "../store/thunks";
+import { selectResults, selectLoading } from "../store/selectors";
 
-export default function ResultsScreen({ navigation }) {
-	// Replace with dynamic values
-	const p1Score = [1, 3];
-	const p2Score = [2, 4];
-	const p3Score = [3, 5];
+export default function ResultsScreen({ navigation, route }) {
+  const dispatch = useDispatch();
 
-	setTimeout(() => {
-		navigation.navigate('DisplaySequence');
-	}, 15000);
+  const loading = useSelector(selectLoading);
 
-	return (
-		<View style={styles.container}>
-			<Text style={{ fontSize: 36, marginBottom: 20 }}>Player 1</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p1Score[0]} ✅
-			</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p1Score[1]} ❌
-			</Text>
-			<Text style={{ fontSize: 36, marginBottom: 20 }}>Player 2</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p2Score[0]} ✅
-			</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p2Score[1]} ❌
-			</Text>
-			<Text style={{ fontSize: 36, marginBottom: 20 }}>Player 3</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p3Score[0]} ✅
-			</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20 }}>
-				{p3Score[1]} ❌
-			</Text>
-			<Text style={{ fontSize: 20, marginBottom: 20, marginTop: 20 }}>
-				Next round begins in...
-			</Text>
-			<CountdownCircleTimer
-				isPlaying={true}
-				duration={15}
-				colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-				colorsTime={[10, 6, 3, 0]}
-				onComplete={() => ({ shouldRepeat: true, delay: 2 })}
-				updateInterval={1}
-				size={80}
-			>
-				{({ remainingTime, color }) => (
-					<Text style={{ color, fontSize: 20 }}>{remainingTime}</Text>
-				)}
-			</CountdownCircleTimer>
-		</View>
-	);
+  const { display_sequence_id } = route.params;
+  console.log(display_sequence_id);
+
+  const results = useSelector(selectResults);
+  console.log("Results from selector:", results);
+
+  const scoresArray = results && results.scores;
+
+  const p1 = scoresArray && scoresArray.length > 0 ? scoresArray[0] : null;
+  console.log("p1:", p1);
+
+  const p2 = scoresArray && scoresArray.length > 1 ? scoresArray[1] : null;
+  console.log("p2:", p2);
+
+  const p3 = scoresArray && scoresArray.length > 2 ? scoresArray[2] : null;
+  console.log("p3:", p3);
+
+  // make dynamic
+  let round = 1;
+
+  setTimeout(() => {
+    if (round < 3) {
+      navigation.navigate("DisplaySequence", { round: round + 1 });
+    } else {
+      navigation.navigate("FinalResults");
+    }
+  }, 15000);
+
+  useEffect(() => {
+    dispatch(getResultsThunk(display_sequence_id));
+  }, [dispatch]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={{ fontSize: 36, marginBottom: 20 }}>Player 1</Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p1.correct_guesses} ✅
+      </Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p1.incorrect_guesses} ❌
+      </Text>
+      <Text style={{ fontSize: 36, marginBottom: 20 }}>Player 2</Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p2.correct_guesses} ✅
+      </Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p2.incorrect_guesses} ❌
+      </Text>
+      <Text style={{ fontSize: 36, marginBottom: 20 }}>Player 3</Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p3.correct_guesses} ✅
+      </Text>
+      <Text style={{ fontSize: 20, marginBottom: 20 }}>
+        {p3.incorrect_guesses} ❌
+      </Text>
+      {round < 3 && (
+        <Text style={{ fontSize: 20, marginBottom: 20, marginTop: 20 }}>
+          Next round begins in...
+        </Text>
+      )}
+      <CountdownCircleTimer
+        isPlaying={true}
+        duration={15}
+        colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+        colorsTime={[10, 6, 3, 0]}
+        onComplete={() => ({ shouldRepeat: true, delay: 2 })}
+        updateInterval={1}
+        size={80}
+      >
+        {({ remainingTime, color }) => (
+          <Text style={{ color, fontSize: 20 }}>{remainingTime}</Text>
+        )}
+      </CountdownCircleTimer>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: '#ecf0f1',
-		padding: 8,
-	},
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#ecf0f1",
+    padding: 8,
+  },
 });

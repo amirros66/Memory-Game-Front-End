@@ -6,6 +6,8 @@ import {
   setUserID,
   setDisplaySequences,
   setUsers,
+  setResults,
+  setLoading,
 } from "./slice";
 import store from "./index";
 
@@ -82,6 +84,23 @@ export const getUsersThunk = (game_id) => {
       const users = response.data;
       console.log("Users:", users);
       dispatch(setUsers(users));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+};
+
+export const getResultsThunk = (display_sequence_id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/scores/round/${display_sequence_id}`
+      );
+      const results = response.data;
+      console.log("Results:", results);
+      dispatch(setResults(results));
+      dispatch(setLoading(false));
     } catch (error) {
       console.log("Error:", error);
     }
