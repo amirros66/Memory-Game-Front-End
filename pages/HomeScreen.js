@@ -1,7 +1,7 @@
 import { Button, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchActiveGame } from '../store/thunks';
+import { fetchActiveGame, createGame } from '../store/thunks';
 import { selectActiveGameID } from '../store/selectors';
 
 // useEffect to dispatch a thunk that fetches if the game is active or not.
@@ -17,7 +17,7 @@ export default function HomeScreen({ navigation }) {
 	});
 
 	function handleStartGame() {
-		//dispatch thunk to start game
+		dispatch(createGame());
 		navigation.navigate('Lobby');
 	}
 
