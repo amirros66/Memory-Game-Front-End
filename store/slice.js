@@ -29,10 +29,19 @@ const gameSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload;
     },
+    incrementRound: (state) => {
+      state.round += 1;
+    },
   },
 });
 
-export const { setGame, setGameID, setUserID, setDisplaySequences, setUsers } =
-  gameSlice.actions;
+export const {
+  setGame,
+  setGameID,
+  setUserID,
+  setDisplaySequences,
+  setUsers,
+  incrementRound,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

@@ -1,14 +1,22 @@
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { useSelector } from "react-redux";
-import { selectDisplaySequences, selectUserId } from "../store/selectors";
-// import { selectDisplaySequencesById } from "../store/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { selectDisplaySequences, selectRound } from "../store/selectors";
+import { incrementRound } from "../store/slice";
 
-export default function DisplaySequenceScreen({ navigation }) {
+export default function DisplaySequenceScreen({ navigation, route }) {
   //For passing as props to input sequence - but need to pass display_sequence_id
-  // const user_id = useSelector(selectUserId);
-  // // const display_sequence = useSelector(selectDisplaySequences);
-  // const display_sequence_id = useSelector(selectDisplaySequencesById);
+  // const { gameID, userID, displaySequenceID } = route.params;
+  // const game_id = gameID;
+  // const user_id = userID;
+  // const display_sequence_id = displaySequenceID;
+
+  const dispatch = useDispatch();
+  const displaySequences = useSelector(selectDisplaySequences);
+  console.log("Display Sequences:", displaySequences);
+
+  const round = useSelector(selectRound);
 
   const convertStringToEmoji = (sequence) => {
     const mapping = {
@@ -24,26 +32,59 @@ export default function DisplaySequenceScreen({ navigation }) {
       .join(" ");
   };
 
-  const displaySequence = useSelector(selectDisplaySequences);
-  console.log("Display Sequence:", displaySequence);
-  //Round 1. [1] would be round 2, [2] would be round 3 how do I get this to increment
-  //each time this page is navigated to ?
-  const rawSequence = displaySequence[0]?.value || "Sequence not found";
-  console.log("Raw Sequence:", rawSequence);
+  // useEffect(() => {
+  //   console.log("Display Sequences:", displaySequences);
+  //   if (currentSequenceIndex < displaySequences.length) {
+  //     const timer = setTimeout(() => {
+  //       setCurrentSequenceIndex((index) => index + 1); // Increment after timer
+  //       navigation.navigate("InputSequence");
+  //     }, 10000);
 
-  const sequenceToDisplay = convertStringToEmoji(rawSequence);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [currentSequenceIndex, displaySequences, navigation]);
 
-  // Replace with dynamic values
-  const round = 1;
+  // const sequenceToDisplay = convertStringToEmoji(
+  //   displaySequences[currentSequenceIndex]?.value || "Sequence not found"
+  // );
 
-  //This is to pass down as props
+  // const displaySequence = useSelector(selectDisplaySequences);
+  // console.log("Display Sequence:", displaySequence);
+  // //Round 1. [1] would be round 2, [2] would be round 3 how do I get this to increment
+  // //each time this page is navigated to ?
+  // //Round goes by display sequence index not display sequence ID.
+  // //If statement - if statement with [0] - round one.
+
+  // const rawSequence = displaySequence[0]?.value || "Sequence not found";
+  // console.log("Raw Sequence:", rawSequence);
+
+  // const sequenceToDisplay = convertStringToEmoji(rawSequence);
+
+  // // Replace with dynamic values
+  // const round = 1;
+
+  //Pass game id + user id as props to input sequence page.
   // setTimeout(() => {
-  //   navigation.navigate("InputSequence", { user_id, display_sequence_id });
+  //   navigation.navigate("InputSequence", { gameID: game_id, userID: user_id, displaySequenceID: display_sequence_id }, );
   // }, 10000);
 
-  setTimeout(() => {
-    navigation.navigate("InputSequence");
-  }, 10000);
+  useEffect(() => {
+    console.log("Display Sequences:", displaySequences);
+    console.log("Current Round:", round);
+
+    if (round - 1 < displaySequences.length) {
+      const timer = setTimeout(() => {
+        navigation.navigate("InputSequence");
+        dispatch(incrementRound()); // Increment the round for the next visit
+      }, 10000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [round, displaySequences, navigation, dispatch]);
+
+  const sequenceToDisplay = convertStringToEmoji(
+    displaySequences[round - 1]?.value || "Sequence not found"
+  );
 
   return (
     <View style={styles.container}>
