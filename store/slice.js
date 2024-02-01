@@ -10,7 +10,13 @@ initialState = {
 const gameSlice = createSlice({
   name: "game",
   initialState,
-  reducers: {},
+  reducers: {
+    setDisplaySequences(state, action) {
+      state.display_sequences = action.payload;
+    },
+  },
 });
+
+export const { setDisplaySequences } = gameSlice.actions;
 
 export default gameSlice.reducer;
