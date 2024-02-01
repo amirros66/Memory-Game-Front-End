@@ -7,6 +7,8 @@ initialState = {
   display_sequences: [],
   round: 1,
   timeout: null,
+  results: [],
+  loading: true,
 };
 
 const gameSlice = createSlice({
@@ -29,6 +31,12 @@ const gameSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload;
     },
+    setResults: (state, action) => {
+      state.results = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
     incrementRound: (state) => {
       state.round += 1;
     },
@@ -41,7 +49,8 @@ export const {
   setUserID,
   setDisplaySequences,
   setUsers,
-  incrementRound,
+  setResults,
+  setLoading,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
