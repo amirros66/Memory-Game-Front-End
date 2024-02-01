@@ -9,7 +9,9 @@ import InputSequenceScreen from "./pages/InputSequenceScreen";
 import ResultsScreen from "./pages/ResultsScreen";
 import GameOverScreen from "./pages/GameOverScreen";
 import { Provider } from "react-redux";
-import store from "./index.js";
+import store from "./store/index.js";
+import { AppRegistry } from "react-native";
+import { name as appName } from "./app.json";
 
 const Stack = createStackNavigator();
 
@@ -58,3 +60,5 @@ export default function App() {
     </Provider>
   );
 }
+
+AppRegistry.registerComponent(appName, () => App);

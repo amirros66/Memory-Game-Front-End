@@ -1,4 +1,4 @@
-import createSlice from "@reduxjs/toolkit/createSlice";
+import { createSlice } from "@reduxjs/toolkit";
 
 initialState = {
   game_id: null,
@@ -7,7 +7,7 @@ initialState = {
   round: 1,
 };
 
-slice = createSlice({
+const gameSlice = createSlice({
   name: "game",
   initialState,
   reducers: {},
