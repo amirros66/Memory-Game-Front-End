@@ -26,13 +26,14 @@ export const createGame = () => async (dispatch) => {
 
 // Creates new user belonging to active game (game_id)
 export const joinGame = (gameID) => async (dispatch) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/game/${gameID}`);
-    const user = response.data;
-    dispatch(setUserID(user));
-  } catch (error) {
-    console.log(error);
-  }
+	try {
+		console.log(gameID);
+		const response = await axios.post(`${API_BASE_URL}/users/${gameID}`);
+		const user = response.data;
+		dispatch(setUserID(user));
+	} catch (error) {
+		console.log(error);
+	}
 };
 
 export const getDisplaySequencesThunk = (game_id) => {
