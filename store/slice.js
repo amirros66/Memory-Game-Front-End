@@ -1,17 +1,13 @@
 import createSlice from "@reduxjs/toolkit/createSlice";
 
 initialState = {
+  game_id: null,
   users: [],
-  games: [],
-  display_sequence: "",
-  input_sequence: "",
+  display_sequences: [],
+  round: 1,
 };
 slice = createSlice({
   name: "game",
   initialState,
-  reducers: {
-    addUser(state, action) {
-      state.users = [...state.users, action.payload];
-    },
-  },
+  reducers: {},
 });
