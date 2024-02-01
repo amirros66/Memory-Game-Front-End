@@ -6,8 +6,11 @@ initialState = {
   display_sequences: [],
   round: 1,
 };
+
 slice = createSlice({
   name: "game",
   initialState,
   reducers: {},
 });
+
+export default gameSlice.reducer;
