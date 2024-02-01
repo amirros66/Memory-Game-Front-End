@@ -4,15 +4,16 @@ import { useEffect } from "react";
 import { selectIsGameReady } from "../store/selectors";
 import { getUsersThunk } from "../store/thunks";
 
-export default function LobbyScreen({ navigation }) {
+export default function LobbyScreen({ navigation, route }) {
   const dispatch = useDispatch();
 
   const isGameReady = useSelector(selectIsGameReady);
-  const game_id = 10;
+  const { gameID } = route.params;
+  const game_id = gameID;
 
   useEffect(() => {
     if (isGameReady.length === 3) {
-      navigation.navigate("Game");
+      navigation.navigate("Game", { gameID: game_id });
     } else {
       const intervalId = setInterval(() => {
         dispatch(getUsersThunk(game_id));
