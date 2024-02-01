@@ -16,7 +16,7 @@ export default function InputSequenceScreen({ navigation, route }) {
 
   //  const displaySequences = useSelector(selectDisplaySequences);
   // change to dynamic values
-  const round = 1;
+  const round = 3;
   const game_id = 10;
   const display_sequence_id = 25;
   const user_id = 12;

@@ -8,6 +8,7 @@ import {
   setUsers,
   setResults,
   setLoading,
+  setFinalResults,
 } from "./slice";
 import store from "./index";
 
@@ -103,6 +104,24 @@ export const getResultsThunk = (display_sequence_id) => {
       dispatch(setLoading(false));
     } catch (error) {
       console.log("Error:", error);
+    }
+  };
+};
+
+export const getFinalResultsThunk = (game_id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/scores/total/${game_id}`
+      );
+      const results = response.data;
+      console.log("Results:", results);
+      dispatch(setFinalResults(results));
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setLoading(false));
     }
   };
 };

@@ -1,20 +1,26 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import * as Animatable from "react-native-animatable";
 import React, { useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFinalResultsThunk } from "../store/thunks";
+import { selectFinalResults, selectLoading } from "../store/selectors";
 
-export default function GameOverScreen() {
+export default function GameOverScreen(route) {
   const dispatch = useDispatch();
 
-  const firstPlace = "Player 1";
-  const secondPlace = "Player 2";
-  const thirdPlace = "Player 3";
+  //make dynamic
+  // const { game_id } = route.params;
+  // console.log("Game id:", game_id);
+  const game_id = 25;
 
-  const { game_id } = route.params;
+  const loading = useSelector(selectLoading);
 
-  const animateText1Ref = useRef(null);
-  const animateText2Ref = useRef(null);
-  const animateText3Ref = useRef(null);
+  useEffect(() => {
+    dispatch(getFinalResultsThunk(game_id));
+  }, [dispatch, game_id]);
+
+  const finalResults = useSelector(selectFinalResults);
+  console.log("Final Results:", finalResults);
 
   useEffect(() => {
     if (animateText1Ref.current) {
@@ -32,6 +38,25 @@ export default function GameOverScreen() {
     }
   }, []);
 
+  const animateText1Ref = useRef(null);
+  const animateText2Ref = useRef(null);
+  const animateText3Ref = useRef(null);
+
+  const sortedResults = [...finalResults].sort(
+    (a, b) => b.total_correct_guesses - a.total_correct_guesses
+  );
+
+  const firstPlace = sortedResults[0];
+  const secondPlace = sortedResults[1];
+  const thirdPlace = sortedResults[2];
+  console.log("First Place:", firstPlace);
+  console.log("Second Place:", secondPlace);
+  console.log("Third Place:", thirdPlace);
+
+  if (!finalResults || loading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 15 }}>
@@ -43,7 +68,7 @@ export default function GameOverScreen() {
         iterationCount={4}
         style={{ fontSize: 30, marginBottom: 15 }}
       >
-        {firstPlace}
+        {firstPlace.player_name}
       </Animatable.Text>
       <Text style={{ fontSize: 37, fontWeight: "bold", marginBottom: 15 }}>
         🥈2nd Place🥈
@@ -54,7 +79,7 @@ export default function GameOverScreen() {
         iterationCount={2}
         style={{ fontSize: 30, marginBottom: 15 }}
       >
-        {secondPlace}
+        {secondPlace.player_name}
       </Animatable.Text>
       <Text style={{ fontSize: 35, fontWeight: "bold", marginBottom: 15 }}>
         🥉3rd Place🥉
@@ -65,7 +90,7 @@ export default function GameOverScreen() {
         iterationCount={2}
         style={{ fontSize: 30, marginBottom: 15 }}
       >
-        {thirdPlace}
+        {thirdPlace.player_name}
       </Animatable.Text>
     </View>
   );
