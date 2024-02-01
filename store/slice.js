@@ -51,6 +51,7 @@ export const {
   setUsers,
   setResults,
   setLoading,
+  incrementRound,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
