@@ -1,8 +1,41 @@
-import axios from "axios";
+import axios from 'axios';
 import { API_BASE_URL } from "../.env";
-import { setDisplaySequences } from "./slice";
+import { setGameID, setGame, setUserID, setDisplaySequences } from './slice';
+import store from './index';
 
-console.log("API_BASE_URL:", API_BASE_URL);
+const API_BASE_URL = 'http://192.168.68.59:8000';
+
+export const fetchActiveGame = () => async (dispatch) => {
+	try {
+		const response = await axios.get(`${API_BASE_URL}/game/active`);
+		const game = response.data;
+		dispatch(setGameID(game.id));
+	} catch {
+		dispatch(setGameID(null));
+	}
+};
+
+export const createGame = () => async (dispatch) => {
+	try {
+		const response = await axios.post(`${API_BASE_URL}/game`);
+		const game = response.data;
+		dispatch(setGame(game));
+		console.log(game);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+// Creates new user belonging to active game (game_id)
+export const joinGame = (gameID) => async (dispatch) => {
+	try {
+		const response = await axios.post(`${API_BASE_URL}/game/${gameID}`);
+		const user = response.data;
+		dispatch(setUserID(user));
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 export const getDisplaySequencesThunk = (game_id) => {
   return async (dispatch) => {
@@ -17,4 +50,4 @@ export const getDisplaySequencesThunk = (game_id) => {
       console.log("Error:", error);
     }
   };
-};
+
