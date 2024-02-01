@@ -1,16 +1,17 @@
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDisplaySequencesThunk } from "../store/thunks";
 import { useNavigation } from "@react-navigation/native";
+import { selectActiveGameID } from "../store/selectors";
 
 export default function GameScreen() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const game_id = 9;
+  const game_id = useSelector(selectActiveGameID);
 
   useEffect(() => {
     dispatch(getDisplaySequencesThunk(game_id));
