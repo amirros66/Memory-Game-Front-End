@@ -17,7 +17,7 @@ export default function InputSequenceScreen({ navigation, route }) {
   //  const displaySequences = useSelector(selectDisplaySequences);
   // change to dynamic values
   const round = 1;
-
+  const game_id = 10;
   const display_sequence_id = 25;
   const user_id = 12;
 
@@ -45,11 +45,18 @@ export default function InputSequenceScreen({ navigation, route }) {
       dispatch(setInputSequenceThunk(user_id, value));
       setTimeout(() => {
         navigation.navigate("Results", {
-          display_sequence_id: display_sequence_id,
+          display_sequence_id,
+          game_id,
         });
       }, 1500);
     }
-  }, [countdownCompleted, arrowValues, navigation, display_sequence_id]);
+  }, [
+    countdownCompleted,
+    arrowValues,
+    navigation,
+    display_sequence_id,
+    game_id,
+  ]);
 
   const handleButtonPress = (arrow) => {
     let arrowValue = "";

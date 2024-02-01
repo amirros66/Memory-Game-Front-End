@@ -1,11 +1,16 @@
 import { Text, View, StyleSheet } from "react-native";
 import * as Animatable from "react-native-animatable";
 import React, { useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 export default function GameOverScreen() {
+  const dispatch = useDispatch();
+
   const firstPlace = "Player 1";
   const secondPlace = "Player 2";
   const thirdPlace = "Player 3";
+
+  const { game_id } = route.params;
 
   const animateText1Ref = useRef(null);
   const animateText2Ref = useRef(null);
