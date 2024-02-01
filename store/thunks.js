@@ -108,10 +108,11 @@ export const getResultsThunk = (display_sequence_id) => {
   };
 };
 
-export const getFinalResultsThunk = (game_id) => {
+export const getFinalResultsThunk = (display_sequence_id) => {
   return async (dispatch) => {
     dispatch(setLoading(true));
     try {
+      const game_id = display_sequence_id;
       const response = await axios.get(
         `${API_BASE_URL}/scores/total/${game_id}`
       );
@@ -122,6 +123,20 @@ export const getFinalResultsThunk = (game_id) => {
     } catch (error) {
       console.log("Error:", error);
       dispatch(setLoading(false));
+    }
+  };
+};
+
+export const gameOverThunk = (game_id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `${API_BASE_URL}/game-over/${game_id}`
+      );
+      const game = response.data;
+      console.log("Game:", game);
+    } catch (error) {
+      console.log("Error:", error);
     }
   };
 };

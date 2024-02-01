@@ -1,8 +1,14 @@
-import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ActivityIndicator,
+  Button,
+} from "react-native";
 import * as Animatable from "react-native-animatable";
 import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFinalResultsThunk } from "../store/thunks";
+import { getFinalResultsThunk, gameOverThunk } from "../store/thunks";
 import { selectFinalResults, selectLoading } from "../store/selectors";
 
 export default function GameOverScreen(route) {
@@ -11,13 +17,14 @@ export default function GameOverScreen(route) {
   //make dynamic
   // const { game_id } = route.params;
   // console.log("Game id:", game_id);
-  const game_id = 25;
+  const display_sequence_id = 28;
+  const game_id = 11;
 
   const loading = useSelector(selectLoading);
 
   useEffect(() => {
-    dispatch(getFinalResultsThunk(game_id));
-  }, [dispatch, game_id]);
+    dispatch(getFinalResultsThunk(display_sequence_id));
+  }, [dispatch, display_sequence_id]);
 
   const finalResults = useSelector(selectFinalResults);
   console.log("Final Results:", finalResults);
@@ -52,6 +59,10 @@ export default function GameOverScreen(route) {
   console.log("First Place:", firstPlace);
   console.log("Second Place:", secondPlace);
   console.log("Third Place:", thirdPlace);
+
+  const handleGameOver = () => {
+    dispatch(gameOverThunk(game_id));
+  };
 
   if (!finalResults || loading) {
     return <ActivityIndicator size="large" color="#0000ff" />;
@@ -92,6 +103,7 @@ export default function GameOverScreen(route) {
       >
         {thirdPlace.player_name}
       </Animatable.Text>
+      <Button title="GAME OVER" onPress={handleGameOver}></Button>
     </View>
   );
 }
