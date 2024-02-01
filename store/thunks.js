@@ -26,7 +26,8 @@ export const createGame = () => async (dispatch) => {
 // Creates new user belonging to active game (game_id)
 export const joinGame = (gameID) => async (dispatch) => {
 	try {
-		const response = await axios.post(`${API_BASE_URL}/game/${gameID}`);
+		console.log(gameID);
+		const response = await axios.post(`${API_BASE_URL}/users/${gameID}`);
 		const user = response.data;
 		dispatch(setUserID(user));
 	} catch (error) {
