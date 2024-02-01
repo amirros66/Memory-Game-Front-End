@@ -1,8 +1,10 @@
+
 import { Button, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchActiveGame, createGame, joinGame } from '../store/thunks';
 import { selectActiveGameID } from '../store/selectors';
+
 
 // useEffect to dispatch a thunk that fetches if the game is active or not.
 // if active, join a game. else start a game
@@ -36,29 +38,24 @@ export default function HomeScreen({ navigation }) {
 				<Button title="Start a game" onPress={handleStartGame} />
 			)}
 
-			{/* Testing */}
-			<Button
-				title="Lobby"
-				onPress={() => navigation.navigate('Lobby')}
-			/>
-			{/*FOR TESTING PURPOSES ONLY */}
-			<Button
-				title="Display Sequence"
-				onPress={() => navigation.navigate('DisplaySequence')}
-			/>
-			{/* Testing */}
-			<Button
-				title="Input Sequence"
-				onPress={() => navigation.navigate('InputSequence')}
-			/>
-			<Button
-				title="Results"
-				onPress={() => navigation.navigate('Results')}
-			/>
-			<Button
-				title="GameOver"
-				onPress={() => navigation.navigate('GameOver')}
-			/>
-		</View>
-	);
+      {/* Testing */}
+      <Button title="Lobby" onPress={() => navigation.navigate("Lobby")} />
+      {/*FOR TESTING PURPOSES ONLY */}
+      <Button
+        title="Display Sequence"
+        onPress={() => navigation.navigate("DisplaySequence")}
+      />
+      {/* Testing */}
+      <Button
+        title="Input Sequence"
+        onPress={() => navigation.navigate("InputSequence")}
+      />
+      <Button title="Results" onPress={() => navigation.navigate("Results")} />
+      <Button
+        title="GameOver"
+        onPress={() => navigation.navigate("GameOver")}
+      />
+      <Button title="Game" onPress={() => navigation.navigate("Game")} />
+    </View>
+  );
 }

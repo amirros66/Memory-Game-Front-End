@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { setGameID, setGame, setUserID } from './slice';
+import { API_BASE_URL } from "../.env";
+import { setGameID, setGame, setUserID, setDisplaySequences } from './slice';
 import store from './index';
 
 const API_BASE_URL = 'http://192.168.68.59:8000';
@@ -35,3 +36,18 @@ export const joinGame = (gameID) => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+export const getDisplaySequencesThunk = (game_id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/display-sequences?game_id=${game_id}`
+      );
+      const display_sequences = response.data;
+      dispatch(setDisplaySequences(display_sequences));
+      console.log("Display Sequences:", display_sequences);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+

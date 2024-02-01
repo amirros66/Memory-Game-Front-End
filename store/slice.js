@@ -12,6 +12,9 @@ const gameSlice = createSlice({
 	name: 'game',
 	initialState,
 	reducers: {
+      setDisplaySequences(state, action) {
+      state.display_sequences = action.payload;
+    },
 		setGameID: (state, action) => {
 			state.game_id = action.payload;
 		},
@@ -25,5 +28,6 @@ const gameSlice = createSlice({
 	},
 });
 
-export const { setGame, setGameID, setUserID } = gameSlice.actions;
+export const { setGame, setGameID, setUserID, setDisplaySequences } = gameSlice.actions;
+
 export default gameSlice.reducer;
