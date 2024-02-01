@@ -16,7 +16,7 @@ import React, { useState, useEffect } from "react";
 // if round = 3 --> < 8
 
 export default function InputSequenceScreen({ navigation }) {
-  const round = 1;
+  const round = 3;
 
   const [arrows, setArrows] = useState([]);
   const [countdownCompleted, setCountdownCompleted] = useState(false);
@@ -100,7 +100,14 @@ export default function InputSequenceScreen({ navigation }) {
           <Button title="⬅️" onPress={() => handleButtonPress("⬅️")} />
           <Button title="➡️" onPress={() => handleButtonPress("➡️")} />
         </View>
-        <View style={{ flexDirection: "row", marginTop: 20 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
           {arrows.map((arrow, index) => (
             <Text key={index} style={{ fontSize: 40, marginRight: 10 }}>
               {arrow}
