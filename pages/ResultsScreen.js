@@ -31,8 +31,7 @@ export default function ResultsScreen({ navigation, route }) {
 
   setTimeout(() => {
     if (round < 3) {
-      navigation.navigate("DisplaySequence", { round });
-      round = round + 1;
+      navigation.navigate("DisplaySequence", { round: round + 1 });
     } else {
       navigation.navigate("FinalResults");
     }
