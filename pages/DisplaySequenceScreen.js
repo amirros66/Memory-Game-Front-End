@@ -2,11 +2,13 @@ import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useSelector } from "react-redux";
 import { selectDisplaySequences, selectUserId } from "../store/selectors";
+// import { selectDisplaySequencesById } from "../store/selectors";
 
 export default function DisplaySequenceScreen({ navigation }) {
   //For passing as props to input sequence - but need to pass display_sequence_id
-  const user_id = useSelector(selectUserId);
-  const display_sequence = useSelector(selectDisplaySequences);
+  // const user_id = useSelector(selectUserId);
+  // // const display_sequence = useSelector(selectDisplaySequences);
+  // const display_sequence_id = useSelector(selectDisplaySequencesById);
 
   const convertStringToEmoji = (sequence) => {
     const mapping = {
@@ -23,7 +25,9 @@ export default function DisplaySequenceScreen({ navigation }) {
   };
 
   const displaySequence = useSelector(selectDisplaySequences);
-  console.log("Display Sequence:", displaySequence); //returns empty array
+  console.log("Display Sequence:", displaySequence);
+  //Round 1. [1] would be round 2, [2] would be round 3 how do I get this to increment
+  //each time this page is navigated to ?
   const rawSequence = displaySequence[0]?.value || "Sequence not found";
   console.log("Raw Sequence:", rawSequence);
 
@@ -31,10 +35,14 @@ export default function DisplaySequenceScreen({ navigation }) {
 
   // Replace with dynamic values
   const round = 1;
-  // const sequence = '⬅️ ⬆️ ⬇️ ➡️';
+
+  //This is to pass down as props
+  // setTimeout(() => {
+  //   navigation.navigate("InputSequence", { user_id, display_sequence_id });
+  // }, 10000);
 
   setTimeout(() => {
-    navigation.navigate("InputSequence", { user_id, display_sequence });
+    navigation.navigate("InputSequence");
   }, 10000);
 
   return (
