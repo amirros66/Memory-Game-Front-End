@@ -8,24 +8,54 @@ import {
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import React, { useState, useEffect } from "react";
 
+// use selector to get display disequences
+// use index of display sequence to get round
+// round = displaysequenceindex -1
+// if round = 1 --> < 4
+// if round = 2 --> < 6
+// if round = 3 --> < 8
+
 export default function InputSequenceScreen({ navigation }) {
-  // Replace with dynamic values
   const round = 1;
 
   const [arrows, setArrows] = useState([]);
   const [countdownCompleted, setCountdownCompleted] = useState(false);
+  const [arrowValues, setArrowValues] = useState([]);
+  const [finalArrowValues, setFinalArrowValues] = useState([]);
 
   useEffect(() => {
     if (countdownCompleted) {
+      setFinalArrowValues(arrowValues);
+      console.log(arrowValues);
       setTimeout(() => {
         navigation.navigate("Results");
       }, 1500);
     }
-  }, [countdownCompleted, arrows, navigation]);
+  }, [countdownCompleted, finalArrowValues, navigation]);
 
   const handleButtonPress = (arrow) => {
-    if (arrows.length < 4) {
+    let arrowValue = "";
+
+    switch (arrow) {
+      case "⬆️":
+        arrowValue = "up";
+        break;
+      case "⬇️":
+        arrowValue = "down";
+        break;
+      case "⬅️":
+        arrowValue = "left";
+        break;
+      case "➡️":
+        arrowValue = "right";
+        break;
+      default:
+        arrowValue = "";
+    }
+
+    if (arrowValue && arrows.length < 4) {
       setArrows((prevArrows) => [...prevArrows, arrow]);
+      setArrowValues((prevArrowValues) => [...prevArrowValues, arrowValue]);
     }
   };
 
