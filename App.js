@@ -9,7 +9,7 @@ import InputSequenceScreen from "./pages/InputSequenceScreen";
 import ResultsScreen from "./pages/ResultsScreen";
 import GameOverScreen from "./pages/GameOverScreen";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./index.js";
 
 const Stack = createStackNavigator();
 
