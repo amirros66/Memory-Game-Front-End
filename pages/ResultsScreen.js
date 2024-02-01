@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ActivityIndicator } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useDispatch, useSelector } from "react-redux";
 import { getResultsThunk } from "../store/thunks";
-import { selectResults } from "../store/selectors";
+import { selectResults, selectLoading } from "../store/selectors";
 
 export default function ResultsScreen({ navigation, route }) {
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(true);
+  const loading = useSelector(selectLoading);
 
   const { display_sequence_id } = route.params;
   console.log(display_sequence_id);
@@ -30,7 +30,12 @@ export default function ResultsScreen({ navigation, route }) {
   let round = 1;
 
   setTimeout(() => {
-    navigation.navigate("DisplaySequence");
+    if (round < 3) {
+      navigation.navigate("DisplaySequence", { round });
+      round = round + 1;
+    } else {
+      navigation.navigate("FinalResults");
+    }
   }, 15000);
 
   useEffect(() => {
@@ -64,12 +69,11 @@ export default function ResultsScreen({ navigation, route }) {
       <Text style={{ fontSize: 20, marginBottom: 20 }}>
         {p3.incorrect_guesses} ❌
       </Text>
-      if {round < 3}
-      {
+      {round < 3 && (
         <Text style={{ fontSize: 20, marginBottom: 20, marginTop: 20 }}>
           Next round begins in...
         </Text>
-      }
+      )}
       <CountdownCircleTimer
         isPlaying={true}
         duration={15}
