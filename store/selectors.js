@@ -8,3 +8,5 @@ export const selectDisplaySequences = (reduxState) =>
 export const selectResults = (reduxState) => reduxState.game.results;
 
 export const selectLoading = (reduxState) => reduxState.game.loading;
+
+export const selectFinalResults = (reduxState) => reduxState.game.finalResults;

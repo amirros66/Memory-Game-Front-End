@@ -8,6 +8,7 @@ import {
   setUsers,
   setResults,
   setLoading,
+  setFinalResults,
 } from "./slice";
 import store from "./index";
 
@@ -101,6 +102,39 @@ export const getResultsThunk = (display_sequence_id) => {
       console.log("Results:", results);
       dispatch(setResults(results));
       dispatch(setLoading(false));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+};
+
+export const getFinalResultsThunk = (display_sequence_id) => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const game_id = display_sequence_id;
+      const response = await axios.get(
+        `${API_BASE_URL}/scores/total/${game_id}`
+      );
+      const results = response.data;
+      console.log("Results:", results);
+      dispatch(setFinalResults(results));
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log("Error:", error);
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const gameOverThunk = (game_id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.delete(
+        `${API_BASE_URL}/game-over/${game_id}`
+      );
+      const game = response.data;
+      console.log("Game:", game);
     } catch (error) {
       console.log("Error:", error);
     }

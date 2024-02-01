@@ -9,6 +9,7 @@ initialState = {
   timeout: null,
   results: [],
   loading: true,
+  finalResults: [],
 };
 
 const gameSlice = createSlice({
@@ -37,6 +38,9 @@ const gameSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setFinalResults: (state, action) => {
+      state.finalResults = action.payload;
+    },
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   setUsers,
   setResults,
   setLoading,
+  setFinalResults,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
