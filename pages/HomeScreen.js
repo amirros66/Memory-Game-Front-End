@@ -43,21 +43,21 @@ export default function HomeScreen({ navigation }) {
 	}
 
 	return (
-		<>
-			<Image source={clefairyboard} style={{ width: 400, height: 400 }} />
-			<View
-				style={{
-					flex: 1,
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}
-			>
-				{gameID ? (
-					<Button title="Join a game" onPress={handleJoinGame} />
-				) : (
-					<Button title="Start a game" onPress={handleStartGame} />
-				)}
-			</View>
-		</>
+		<View
+			style={{
+				flex: 1,
+				alignItems: 'center',
+			}}
+		>
+			<Image
+				source={clefairyboard}
+				style={{ width: 400, height: 400, marginBottom: 40 }}
+			/>
+			{gameID ? (
+				<Button title="Join a game" onPress={handleJoinGame} />
+			) : (
+				<Button title="Start a game" onPress={handleStartGame} />
+			)}
+		</View>
 	);
 }
