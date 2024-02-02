@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useSelector } from "react-redux";
 import {
@@ -46,6 +46,10 @@ export default function DisplaySequenceScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={{ uri: "https://i.gifer.com/7A6q.gif" }}
+        style={styles.gifStyle}
+      />
       <Text>Player: {currentUser.player_name}</Text>
       <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 15 }}>
         Round {round}
@@ -53,7 +57,15 @@ export default function DisplaySequenceScreen({ navigation, route }) {
       <Text style={{ fontSize: 25, marginBottom: 40 }}>
         Remember the sequence!
       </Text>
-      <Text style={{ fontSize: 40, marginBottom: 200 }}>
+      <Text
+        style={{
+          fontSize: 40,
+          marginBottom: 200,
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
         {sequenceToDisplay}
       </Text>
       <CountdownCircleTimer
@@ -80,5 +92,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#ecf0f1",
     padding: 8,
+  },
+  gifStyle: {
+    width: 200,
+    height: 200,
+    marginVertical: 20,
   },
 });
