@@ -13,7 +13,6 @@ initialState = {
 };
 
 const gameSlice = createSlice({
-
 	name: 'game',
 	initialState,
 	reducers: {
@@ -45,6 +44,17 @@ const gameSlice = createSlice({
 		setRound: (state, action) => {
 			state.round = action.payload;
 		},
+		resetStore: (state) => {
+			state.game_id = null;
+			state.user_id = null;
+			state.users = [];
+			state.display_sequences = [];
+			state.round = 1;
+			state.timeout = null;
+			state.results = [];
+			state.loading = true;
+			state.finalResults = [];
+		},
 	},
 });
 
@@ -58,6 +68,7 @@ export const {
 	setLoading,
 	setFinalResults,
 	setRound,
+	resetStore,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
