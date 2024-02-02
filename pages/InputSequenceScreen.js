@@ -7,12 +7,15 @@ import {
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setInputSequenceThunk } from '../store/thunks';
+import { selectDisplaySequenceID, selectUser } from '../store/selectors';
 
 export default function InputSequenceScreen({ navigation, route }) {
 	const dispatch = useDispatch();
-	const { game_id, display_sequence_id, user_id, round } = route.params;
+	const { round } = route.params;
+	const user_id = useSelector(selectUser);
+	const display_sequence_id = useSelector(selectDisplaySequenceID(round));
 
 	const [arrows, setArrows] = useState([]);
 	const [countdownCompleted, setCountdownCompleted] = useState(false);
@@ -40,18 +43,12 @@ export default function InputSequenceScreen({ navigation, route }) {
 			);
 			setTimeout(() => {
 				navigation.navigate('Results', {
+					round,
 					display_sequence_id,
-					game_id,
 				});
 			}, 1500);
 		}
-	}, [
-		countdownCompleted,
-		arrowValues,
-		navigation,
-		display_sequence_id,
-		game_id,
-	]);
+	}, [countdownCompleted, arrowValues, navigation, display_sequence_id]);
 
 	const handleButtonPress = (arrow) => {
 		let arrowValue = '';
