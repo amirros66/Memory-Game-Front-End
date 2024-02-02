@@ -9,7 +9,11 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setInputSequenceThunk } from "../store/thunks";
-import { selectDisplaySequenceID, selectUser } from "../store/selectors";
+import {
+  selectDisplaySequenceID,
+  selectUser,
+  selectIsGameReady,
+} from "../store/selectors";
 
 export default function InputSequenceScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -97,8 +101,8 @@ export default function InputSequenceScreen({ navigation, route }) {
 
   return (
     <TouchableWithoutFeedback onPress={() => handleButtonPress(null)}>
-      <Text>Player: {currentUser.player_name}</Text>
       <View style={styles.container}>
+        <Text>Player: {currentUser.player_name}</Text>
         <Text
           style={{
             fontSize: 40,

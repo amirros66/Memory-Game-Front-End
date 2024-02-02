@@ -4,7 +4,12 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useDispatch, useSelector } from "react-redux";
 import { getResultsThunk } from "../store/thunks";
 import { setRound } from "../store/slice";
-import { selectResults, selectLoading } from "../store/selectors";
+import {
+  selectResults,
+  selectLoading,
+  selectUser,
+  selectIsGameReady,
+} from "../store/selectors";
 
 export default function ResultsScreen({ navigation, route }) {
   const dispatch = useDispatch();

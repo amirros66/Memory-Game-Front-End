@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useSelector } from "react-redux";
-import { selectDisplaySequences, selectRound } from "../store/selectors";
+import {
+  selectDisplaySequences,
+  selectRound,
+  selectUser,
+  selectIsGameReady,
+} from "../store/selectors";
 
 export default function DisplaySequenceScreen({ navigation, route }) {
   const round = useSelector(selectRound);
