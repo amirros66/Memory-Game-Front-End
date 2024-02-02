@@ -14,6 +14,8 @@ import {
   selectUser,
   selectIsGameReady,
 } from "../store/selectors";
+import { Image } from "react-native";
+import werkPokemonGif from "../assets/werk-pokemon.gif";
 
 export default function InputSequenceScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -102,6 +104,7 @@ export default function InputSequenceScreen({ navigation, route }) {
   return (
     <TouchableWithoutFeedback onPress={() => handleButtonPress(null)}>
       <View style={styles.container}>
+        <Image source={werkPokemonGif} style={styles.gifStyle} />
         <Text>Player: {currentUser.player_name}</Text>
         <Text
           style={{
@@ -157,5 +160,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#ecf0f1",
     padding: 8,
+  },
+  gifStyle: {
+    width: 200,
+    height: 200,
+    marginVertical: 20,
   },
 });
