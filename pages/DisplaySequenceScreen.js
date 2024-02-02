@@ -6,51 +6,30 @@ import { selectDisplaySequences, selectRound } from "../store/selectors";
 
 export default function DisplaySequenceScreen({ navigation, route }) {
   const round = useSelector(selectRound);
-
-  console.log("Round", round);
-
   const displaySequences = useSelector(selectDisplaySequences);
-  console.log("Display Sequences:", displaySequences);
+  console.log("display sequences:", displaySequences);
 
-  // const round = useSelector(selectRound); //round starts at 1
-  // console.log("Round:", round);
+  const sequenceIndex = round - 1;
+  const currentSequence =
+    displaySequences[sequenceIndex]?.value || "Sequence not found";
 
-  // const convertStringToEmoji = (displaySequences) => {
-  //   const mapping = {
-  //     left: "⬅️",
-  //     right: "➡️",
-  //     up: "⬆️",
-  //     down: "⬇️",
-  //   };
+  const convertStringToEmoji = (sequence) => {
+    const mapping = {
+      left: "⬅️",
+      right: "➡️",
+      up: "⬆️",
+      down: "⬇️",
+    };
+    return sequence
+      .split(",")
+      .map((direction) => mapping[direction] || direction)
+      .join(" ");
+  };
 
-  //   return displaySequences
-  //     .split(",")
-  //     .map((direction) => mapping[direction] || direction)
-  //     .join(" ");
-  // };
-
-  //displaySequence[] is displaying the sequence by index correctly when hard coded.
-  let selectedSequence;
-
-  displaySequences.map((sequence) => {
-    if (round == 1) {
-      selectedSequence = sequence[0];
-      console.log("sequence1:", sequence[0]);
-    } else if (round == 2) {
-      selectedSequence = sequence[1];
-      console.log("sequence2:", sequence[1]);
-    } else if (round == 3) {
-      selectedSequence = sequence[2];
-      console.log("sequence3:", sequence[2]);
-    }
-  });
-
-  const sequenceToDisplay = selectedSequence;
+  const sequenceToDisplay = convertStringToEmoji(currentSequence);
 
   setTimeout(() => {
-    navigation.navigate("InputSequence", {
-      round,
-    });
+    navigation.navigate("InputSequence", { round });
   }, 10000);
 
   return (
