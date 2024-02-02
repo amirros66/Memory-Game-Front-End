@@ -1,57 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectDisplaySequences, selectRound } from "../store/selectors";
-import { incrementRound } from "../store/slice";
-import { useFocusEffect } from "@react-navigation/native";
 
 export default function DisplaySequenceScreen({ navigation, route }) {
-  //For passing as props to input sequence - but need to pass display_sequence_id
-  // const { gameID, userID, displaySequenceID } = route.params;
-  // const game_id = gameID;
-  // const user_id = userID;
-  // const display_sequence_id = displaySequenceID;
+  const round = useSelector(selectRound);
 
-  const dispatch = useDispatch();
+  console.log("Round", round);
+
   const displaySequences = useSelector(selectDisplaySequences);
   console.log("Display Sequences:", displaySequences);
 
-  const round = useSelector(selectRound); //round starts at 1
-  console.log("Round:", round);
+  // const round = useSelector(selectRound); //round starts at 1
+  // console.log("Round:", round);
 
-  const convertStringToEmoji = (sequence) => {
-    const mapping = {
-      left: "⬅️",
-      right: "➡️",
-      up: "⬆️",
-      down: "⬇️",
-    };
+  // const convertStringToEmoji = (displaySequences) => {
+  //   const mapping = {
+  //     left: "⬅️",
+  //     right: "➡️",
+  //     up: "⬆️",
+  //     down: "⬇️",
+  //   };
 
-    return sequence
-      .split(",")
-      .map((direction) => mapping[direction] || direction)
-      .join(" ");
-  };
+  //   return displaySequences
+  //     .split(",")
+  //     .map((direction) => mapping[direction] || direction)
+  //     .join(" ");
+  // };
 
-  useEffect(() => {
-    // Check if it's time to navigate to the next screen
-    if (round <= displaySequences.length) {
-      const timer = setTimeout(() => {
-        navigation.navigate("InputSequence");
-        // Increment round after a delay, right before navigating away
-        dispatch(incrementRound());
-      }, 10000); // Adjust delay as needed
+  //displaySequence[] is displaying the sequence by index correctly when hard coded.
+  let selectedSequence;
 
-      // Cleanup function to clear the timer
-      return () => clearTimeout(timer);
+  displaySequences.map((sequence) => {
+    if (round == 1) {
+      selectedSequence = sequence[0];
+      console.log("sequence1:", sequence[0]);
+    } else if (round == 2) {
+      selectedSequence = sequence[1];
+      console.log("sequence2:", sequence[1]);
+    } else if (round == 3) {
+      selectedSequence = sequence[2];
+      console.log("sequence3:", sequence[2]);
     }
-  }, [round, navigation, dispatch]);
+  });
 
-  // Determine which sequence to display based on the current round
-  const sequenceToDisplay = convertStringToEmoji(
-    displaySequences[round - 1]?.value || "Sequence not found"
-  );
+  const sequenceToDisplay = selectedSequence;
+
+  setTimeout(() => {
+    navigation.navigate("InputSequence", {
+      round,
+    });
+  }, 10000);
 
   return (
     <View style={styles.container}>

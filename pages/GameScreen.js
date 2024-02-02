@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDisplaySequencesThunk } from "../store/thunks";
 import { useNavigation } from "@react-navigation/native";
-import { selectActiveGameID } from "../store/selectors";
+import { selectActiveGameID, selectRound } from "../store/selectors";
 
-export default function GameScreen() {
+export default function GameScreen(route) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
