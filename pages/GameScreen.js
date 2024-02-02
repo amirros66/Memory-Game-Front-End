@@ -5,11 +5,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getDisplaySequencesThunk } from "../store/thunks";
 import { useNavigation } from "@react-navigation/native";
-import { selectActiveGameID, selectRound } from "../store/selectors";
+import {
+  selectActiveGameID,
+  selectIsGameReady,
+  selectUser,
+} from "../store/selectors";
 
 export default function GameScreen(route) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const user = useSelector(selectUser);
+  console.log("User:", user);
+  const users = useSelector(selectIsGameReady);
+  console.log("Users:", users);
+  const currentUser = users.find((u) => u.user_id === user);
+  console.log("Current user:", currentUser);
 
   const game_id = useSelector(selectActiveGameID);
 
@@ -23,6 +34,7 @@ export default function GameScreen(route) {
 
   return (
     <View style={styles.container}>
+      <Text>Player: {currentUser.player_name}</Text>
       <Text style={{ fontSize: 36, marginBottom: 40 }}>
         Game starts in....{" "}
       </Text>

@@ -2,12 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { useSelector } from "react-redux";
-import { selectDisplaySequences, selectRound } from "../store/selectors";
+import {
+  selectDisplaySequences,
+  selectRound,
+  selectUser,
+  selectIsGameReady,
+} from "../store/selectors";
 
 export default function DisplaySequenceScreen({ navigation, route }) {
   const round = useSelector(selectRound);
   const displaySequences = useSelector(selectDisplaySequences);
   console.log("display sequences:", displaySequences);
+
+  const user = useSelector(selectUser);
+  console.log("User:", user);
+  const users = useSelector(selectIsGameReady);
+  console.log("Users:", users);
+  const currentUser = users.find((u) => u.user_id === user);
+  console.log("Current user:", currentUser);
 
   const sequenceIndex = round - 1;
   const currentSequence =
@@ -34,6 +46,7 @@ export default function DisplaySequenceScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
+      <Text>Player: {currentUser.player_name}</Text>
       <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 15 }}>
         Round {round}
       </Text>
