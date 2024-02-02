@@ -13,6 +13,7 @@ initialState = {
 };
 
 const gameSlice = createSlice({
+
 	name: 'game',
 	initialState,
 	reducers: {

@@ -1,26 +1,25 @@
 import { Text, View, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { selectIsGameReady } from "../store/selectors";
+import { selectIsGameReady, selectActiveGameID } from "../store/selectors";
 import { getUsersThunk } from "../store/thunks";
 
 export default function LobbyScreen({ navigation, route }) {
   const dispatch = useDispatch();
 
   const isGameReady = useSelector(selectIsGameReady);
-  const { gameID } = route.params;
-  const game_id = gameID;
+  const game_id = useSelector(selectActiveGameID);
 
   useEffect(() => {
     if (isGameReady.length === 3) {
-      navigation.navigate("Game", { gameID: game_id });
+      navigation.navigate("Game");
     } else {
       const intervalId = setInterval(() => {
         dispatch(getUsersThunk(game_id));
       }, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [isGameReady, dispatch, game_id, navigation]);
+  }, [isGameReady, dispatch, navigation]);
 
   return (
     <View style={styles.container}>
