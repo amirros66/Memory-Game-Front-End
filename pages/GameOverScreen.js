@@ -43,7 +43,7 @@ export default function GameOverScreen({ navigation }) {
         }
       }, 4000);
     }
-  }, []);
+  }, [finalResults]);
 
   const animateText1Ref = useRef(null);
   const animateText2Ref = useRef(null);
@@ -69,7 +69,7 @@ export default function GameOverScreen({ navigation }) {
     }
   };
 
-  if (!finalResults || loading) {
+  if (!finalResults || loading || finalResults.length === 0) {
     return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
