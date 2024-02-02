@@ -8,6 +8,7 @@ import {
 	setResults,
 	setLoading,
 	setFinalResults,
+	resetStore,
 } from './slice';
 import store from './index';
 
@@ -137,6 +138,7 @@ export const gameOverThunk = (game_id) => {
 			);
 			const game = response.data;
 			console.log('Game:', game);
+			dispatch(resetStore());
 		} catch (error) {
 			console.log('Error:', error);
 		}
